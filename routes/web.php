@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
-    return view('subviews.Hello');
-});
+// If you have multiple things in your controller method, use this
+Route::get('/about', 'HelloController@about');
+Route::get('/services', 'HelloController@services');
+// Use this as a shortcut if you only have one thing with the same name
+// Route::view('/about', 'about');
+// Route::view('/services', 'services');
