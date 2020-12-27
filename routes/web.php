@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 // If you have multiple things in your controller method, use this
 Route::get('/about', 'HelloController@about');
-Route::get('/services', 'HelloController@services');
+Route::get('/service', 'ServiceController@index');
+Route::post('/service', 'ServiceController@store');
 // Use this as a shortcut if you only have one thing with the same name
 // Route::view('/about', 'about');
 // Route::view('/services', 'services');
