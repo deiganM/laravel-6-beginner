@@ -22,3 +22,6 @@ Route::post('/service', 'ServiceController@store');
 // Use this as a shortcut if you only have one thing with the same name
 // Route::view('/about', 'about');
 // Route::view('/services', 'services');
+Route::get('/customers', 'CustomerController@index');
+Route::get('/customers/create', 'CustomerController@create');
+Route::post('/customers', 'CustomerController@store');
