@@ -2,54 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
+
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = \App\Customer::all();
+        $customers = Customer::all();
 
         return view('customer.index', compact('customers'));
     }
 
     public function create()
     {
-        return view('customer.create');
+        $customer = new Customer();
+
+        return view('customer.create', compact('customer'));
     }
 
     public function store()
     {
-        $data = request()->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
+        // $data = request()->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email',
+        // ]);
 
-        \App\Customer::create($data);
+        // now using validatedData() below instead of what is above
+        $customer = Customer::create($this->validatedData());
 
-        return redirect('/customers');
+        return redirect('/customers/' . $customer->id);
     }
 
     // A shortcut compared to index()
-    public function show(\App\Customer$customer)
+    public function show(Customer $customer)
     {
-        // $customer = \App\Customer::findOrFail($customerId);
+        // $customer = Customer::findOrFail($customerId);
 
         return view('customer.show', compact('customer'));
     }
 
-    public function edit(\App\Customer$customer)
+    public function edit(Customer $customer)
     {
         return view('customer.edit', compact('customer'));
     }
 
-    public function update(\App\Customer$customer)
+    public function update(Customer $customer)
     {
-        $data = request()->validate([
+        $customer->update($this->validatedData());
+
+        return redirect('/customers');
+    }
+
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+
+        return redirect('/customers');
+    }
+
+    protected function validatedData()
+    {
+        return request()->validate([
             'name' => 'required',
             'email' => 'required|email',
         ]);
-
-        $customer->update($data);
-
-        return redirect('/customers');
     }
 }
