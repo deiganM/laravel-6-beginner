@@ -11,9 +11,9 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // If you have multiple things in your controller method, use this
 Route::get('/about', 'HelloController@about');
